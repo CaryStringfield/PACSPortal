@@ -1,0 +1,172 @@
+{% extends "list.html" %}
+{% load bootstrap_tags pagination %}
+{% load tz %}
+
+{% block action_buttons %}
+    {% if add_button_url %}
+        <a href="{{ add_button_url }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Add</a>
+    {% endif %}
+{% endblock action_buttons %}
+
+{% block mobile_context_nav %}
+    {% block context_nav %}
+        {% include "generic_context_menu.html" %}
+    {% endblock context_nav %}
+{% endblock mobile_context_nav %}
+
+{% block table %}
+
+    {% if page_details_top %}
+        <div class="row">
+            <div class="col-sm-12">
+                {% include page_details_top %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% block details %}
+    	{% if submissions|length > 0 %}
+        <div class="row">
+            <div class="col-sm-12">
+            	<a class="btn btn-warning btn-inline" href="?reload=True">
+					<i class="glyphicon glyphicon-refresh"></i> 
+						Reload?
+				</a>
+            	<span>Data loaded on: <span class="highlight">{{ load_date.created_at|localtime }}</span> by <i>{{ load_date.created_by }}</i></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+            	<span>Current Date: <i>{{ current_date|localtime }}</i></span>
+            </div>
+        </div>
+        <br>
+        {% endif %}
+    {% endblock details %}
+
+    {% if page_details %}
+        <div class="row">
+            <div class="col-sm-12">
+                {{ page_details|safe }}
+            </div>
+        </div>
+    {% endif %}
+    
+    {% if submissions|length > 0 %}
+	    {% for student in submissions %}
+	        {% if forloop.first and forloop.last %} {# there's only a header row in the table #}
+	            {% include 'alert.html' with type='warning' message=empty_list_message %}
+	        {% else %}
+	            {% if forloop.first %}
+	                <div class="table-responsive">
+	                <table class="table table-striped table-condensed table-hover">
+	                    <thead>
+	                    	<tr>
+	                    		<th class="col-sm-">Student</th>
+	                    		<th class="col-sm-" colspan="{{ assignments|length }}">Assignments</th>
+	                    	</tr>
+	                        <tr>
+	                    		<th class="col-sm-"></th>
+	                            {% for assignment in assignments %}
+	                            	{% if assignment.latest_assignment %}
+	                                	<th class="col-sm-{{ assignment.1 }} highlight">
+	                                		{% include "pacs_tags/text_w_tooltip.html" with text=assignment.name tooltiptext=assignment.due_date %}
+	                                	</th>
+	                                {% else %}
+	                                	<th class="col-sm-{{ assignment.1 }}">
+											{% include "pacs_tags/text_w_tooltip.html" with text=assignment.name tooltiptext=assignment.due_date %}
+	                                	</th>
+	                                {% endif %}
+	                            {% endfor %}
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	            {% endif %}
+	                <tr>
+	                	<td>{{ student.student.sortable_name }}</td>
+	                    {% for assignment in student.assignments %}
+	                        {% if assignment.latest_assignment %}
+	                        	<td class="highlight">
+							{% else %}
+								<td>
+							{% endif %}
+
+							{% if assignment.late %}
+		                     	{% include "pacs_tags/icon_w_tooltip.html" with icon_class="late_icon fa fa-clock-o" tooltiptext="Late" %}
+							{% elif assignment.submitted %}
+		                     	{% include "pacs_tags/icon_w_tooltip.html" with icon_class="true_icon fa fa-check" tooltiptext="Submitted" %}
+							{% else %}
+		                     	{% include "pacs_tags/icon_w_tooltip.html" with icon_class="false_icon fa fa-times" tooltiptext="Not Submitted" %}
+							{% endif %}
+			                </td>
+	                    {% endfor %}
+	                </tr>
+	            {% if forloop.last %}
+	                </tbody>
+	            </table>
+	            </div>
+	            {% endif %}
+	        {% endif %}
+	    {% endfor %}
+    {% else %}
+    	{% include 'alert.html' with type="warning" message="No submission data found for this course" %}
+    {% endif %}
+
+    {% for labels, data in quicklook.items %}
+        {% for data_row in data %}
+        <div class="quickLook" id="popover_{{ forloop.counter }}">
+            <div data-toggle="popover" data-placement="left" data-html="true" title='Quick Look' data-content='
+                <div class="media">
+                    <div class="media-body">
+                        {% for label in labels %}
+                            {% for data_item in data_row %}
+                                {% if forloop.counter == forloop.parentloop.counter %}
+                                    {% include 'detail_row.html' with label=label value=data_item %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+                '>
+            </div>
+        </div>
+        {% endfor %}
+    {% endfor %}
+
+    {% if page_details_bottom %}
+        <div class="row">
+            <div class="col-sm-12">
+                {% include page_details_bottom %}
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock table %}
+
+{% block extra_header %}
+    {{ block.super }}
+    <style>
+        .quickLook {
+            position: absolute;
+            display: none;
+        }
+
+        .popover {
+            width: 500px;
+            max-width: 500px;
+        }
+
+        .popover > .arrow {
+            display: none;
+        }
+    </style>
+{% endblock extra_header %}
+
+{% block extra_footer %}
+    {{ block.super }}
+    <script>
+        $(document).ready(function () {
+            quickLook(".action-buttons", -450, 5);
+        });
+    </script>
+{% endblock extra_footer %}

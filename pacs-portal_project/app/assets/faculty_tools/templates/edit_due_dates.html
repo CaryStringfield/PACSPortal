@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+ 
+{% block page_title %}
+    Edit Due Dates
+{% endblock page_title %}
+{% block page_headline %}
+    <div class="col-xs-12"><h1 align="center">{{ page_title }}</h1></div>
+{% endblock page_headline %}
+
+
+{% block content %}
+
+
+{% load static %}
+
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel = "stylesheet"  type = "text/css" href ="{% static 'css/changeDates.css' %}" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> 
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script>
+$(document).ready(function() {
+    $('.datepicker').datepicker({
+    	  dateFormat: "mm-dd-yy"
+    });
+});
+</script>
+<style>
+.fieldalert {
+	width:100% !important;
+	margin-bottom: 0px;
+}
+</style>
+<title>{{ page_title }}</title>
+</head>
+<body >  
+   <div align="center" >
+   {% include 'detail_row.html' with label='Course Name' value=course_name|safe %}  
+   {% if assignment_id and student_id %}
+        {% include 'detail_row.html' with label='Student Name' value=student_name|safe %}
+   {% endif %}
+   <br><br>
+   {% if has_override %}
+   		{% if is_override_create %}
+	   		{% include 'alert.html' with type="warning" message="This assignment has an override for this student. Changing the dates will update the override" %}
+	   		<br><br>
+   		{% else %}
+	   		{% include 'alert.html' with type="warning" message="One or more Assignment(s) has a due date override. Changing the dates for an assignment with an override will remove all overrides for that assignment" %}
+	   		<br><br>
+   		{% endif %}
+   	{% endif %}
+   <form method="POST">
+    	{% csrf_token %}
+    	{{ formset.management_form }}
+    	{{ formset.non_form_errors }}
+    	{{ formset.non_field_errors }}
+
+		 <table class = "table table-striped table-condensed table-hover"> 
+           	<thead >
+           		<tr>
+           			<th>Assignment Name</th>
+           			<th>Start Date</th>
+           			<th>Due Date</th>
+           			<th>End Date</th>            		
+           		</tr>            	
+           	</thead>
+           	<tbody> 
+				{% for form in formset %}
+	           		<tr>
+	           			{{ form.id }}
+	           			{% if form.has_override.value %}
+							<td style="text-align:left">
+								{{ form.name }}
+								{% include "pacs_tags/icon_w_tooltip.html" with icon_class="glyphicon glyphicon-exclamation-sign" tooltiptext="Has Override" %}
+							</td>
+						{% else %}
+							<td style="text-align:left">{{ form.name }}</td>
+						{% endif %}
+
+	           			<td>{{ form.start_date }}</td>
+	           			<td>{{ form.due_date }}</td>
+	           			<td>{{ form.end_date }}</td> 
+	           		</tr>   
+				{% if form.non_field_errors %}
+	           		<tr>
+					    {% block non_field_errors %}
+					    <td colspan='4' style="text-align:center;">    {% include "form_fragments/_non_field_errors.html" with errors=form.non_field_errors popover_title="Form Errors:" %}</td>
+					    {% endblock non_field_errors%}
+	           		</tr>
+				{% endif %}        	
+           	{% endfor %}  
+			</tbody>   
+   		</table> 
+   		<br>
+	        <div class="row submit-content">
+	           <div class="col-sm-12" style="text-align: center">
+	               <button type="submit" name="submit" class="btn btn-default action">
+	                   <i class="{{ form.submit_icon|default:'glyphicon glyphicon-floppy-disk' }}"></i> {{ form.submit_text|default:'Save Dates' }}
+	               </button>
+	               {% block additional_submit_buttons %}
+	               {% endblock additional_submit_buttons %}
+	               {% include '_unbound_button.html' with btn_class='btn-default action' url='course_list' icon='glyphicon glyphicon-circle-arrow-left' label='Quit' %}</td>
+	           </div>
+	        </div>
+	</form>
+    </div> </body>
+</html>
+{% endblock %}

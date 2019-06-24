@@ -1,0 +1,11 @@
+<li class="{% if 'faculty_tools' in sidebar_group %}active{% endif %}">
+    <a href="#" data-toggle="collapse" data-target="#faculty_tools_links" class="{% if 'faculty_tools' in sidebar_group %}collapsed{% endif %}" aria-expanded="true">
+        <span class="fas fa-pen-fancy" aria-hidden="true"></span> Faculty Tools<span class="caret"></span>
+    </a>
+    <ul id="faculty_tools_links" class="sidebar-items collapse {% if 'faculty_tools' in sidebar_group %}in{% endif %}" aria-expanded="true">
+		<li>{% include '_sidebar_item.html' with url='course_list' label='My Courses' icon='fas fa-chalkboard-teacher'%}</li>
+		<li>{% include '_sidebar_item.html' with url='canvas_course_list' label='All Courses' icon='fas fa-school'%}</li>
+    	<li>{% include '_sidebar_item.html' with url='course_rotation' label='PACS Course Rotation' icon='fas fa-tasks'%}</li>
+    	<li>{% include '_sidebar_item.html' with url='course_sme' label='PACS Course SME' icon='fas fa-tasks'%}</li>
+    </ul>
+</li>
