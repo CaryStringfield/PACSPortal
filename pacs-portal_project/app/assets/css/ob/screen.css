@@ -1,0 +1,976 @@
+.objective_builder .arrow_holder {
+	display:block;
+	clear:both;
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right:20px;
+}
+
+.objective_builder .content_area {
+	display:block;
+	padding: 10px 20px;
+}
+
+/* Body + Content */
+.objective_builder body
+{
+	margin: 0px;
+	height: 600px;
+	width: 800px;
+}
+.objective_builder textarea
+{
+	position: relative;
+	font-family: 'Open Sans', sans-serif;
+	/*top: 187px;*/
+	/*left: 403px;*/
+	display: block;
+	resize:none;
+	border-radius: 3px;
+	width: 322px;
+	max-width: 323px;
+	top: 50px;
+	left: 50px;
+}
+.objective_builder a, a:visited
+{
+	text-decoration: none;
+}
+.objective_builder a, a li 
+{
+	color: #D8E0FF;
+}
+.objective_builder a:hover
+{
+	text-decoration: underline;
+}
+.objective_builder 
+{
+	height: 600px;
+	width: 800px;
+	margin: 0px auto;
+	overflow: hidden;
+}
+.objective_builder .slide 
+{
+    width: 800px;
+    height: 500px;
+    overflow: hidden;
+}
+.objective_builder .textbox
+{
+	display: block;
+	/*margin-left: 250px;*/
+}
+.objective_builder .content
+{
+	height: 500px;
+	text-align: center;
+}
+.objective_builder #objective
+{
+	/*margin-top: 0px;*/
+	/*margin-left: 91px;*/
+	/*margin-right: 50px;*/
+	height: 50px;
+	width: 800px;
+	max-width: 640px;
+	word-wrap: break-word;
+	text-align: center;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.objective_builder #bottom_bar_buttons li
+{
+	position: relative;
+	display: inline-block;
+	/*left: 32px;*/
+	background: none;
+	border:none;
+	padding: 0px 10px;
+}
+.objective_builder #home
+{
+	position: relative;
+	/*bottom: 5px;*/
+	/*left: -56px;*/
+	background: none;
+	border:none;
+	width: 110px;
+	cursor: pointer;
+	float:left;
+}
+.objective_builder #example
+{
+	position: relative;
+	/*left: 200px;*/
+	background: none;
+	border:none;
+	width: 110px;
+}
+.objective_builder #bar_condition
+{
+	position: relative;
+	/*left: 300px;*/
+	background: none;
+	border:none;
+	width: 110px;
+}
+.objective_builder #bar_audience
+{
+	position: relative;
+	/*left: 400px;*/
+	background: none;
+	border:none;
+	width: 110px;
+}
+.objective_builder #bar_behavior
+{
+	position: relative;
+	/*left: 500px;*/
+	background: none;
+	border:none;
+	width: 110px;
+}
+
+/* Navigation */
+.objective_builder .next-button
+{
+	display: block;
+	position: relative;
+	/*left: 676px;*/
+	/*top: 402px;*/
+	background: none;
+	border: none;
+	cursor: pointer;
+	left: 80%;
+}
+.objective_builder .prev-button
+{
+	position: relative;
+	display: block;
+	/*left: 31px;*/
+	/*top: 402px;*/
+	background: none;
+	border: none;
+	cursor: pointer;
+	float:left;
+}
+
+.objective_builder .next_button img
+{
+	height: 65px;
+}
+
+.objective_builder section:not(.active) 
+{
+    display: none;
+}
+
+.objective_builder #bottom_bar ul li 
+{
+    display: inline;    
+    float:left;
+}
+
+/*Bottom Bar*/
+.objective_builder #bottom_bar
+{
+	background-color: rgba(64, 66, 68, 1);
+	height: 100px;
+	width: 800px;
+	position: relative;
+}
+.objective_builder #bottom_bar ul
+{
+	margin: 0px;
+	text-align:center;
+	margin-left:40px;
+}
+.objective_builder #bottom_bar_buttons {
+	/*position: relative;*/
+	bottom: 0;
+	height: 40px;
+	width: 800px;
+
+}
+.objective_builder #bottom_bar_buttons div
+{
+	position: relative;
+	width: 110px;	
+	text-align: center;
+	padding: 5px;
+	cursor: pointer;
+}
+.objective_builder #bar_condition
+{
+	font-family: 'Open Sans', sans-serif;
+	background-color: rgba(39,174,96,1);
+	font-size: 12pt;
+	border-radius: 3px;
+	color: white;
+	/*left: 50px;*/
+	padding: 5px;
+	cursor: pointer;
+}
+.objective_builder #bar_audience
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 12pt;
+	background-color: rgba(192,57,43,1);
+	border-radius: 3px;
+	color: white;
+	/*left: 190px;*/
+	padding: 5px;
+	cursor: pointer;
+}
+.objective_builder #bar_behavior
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 12pt;
+	background-color: rgba(243,156,18,1);
+	border-radius: 3px;
+	color: white;
+	/*left: 330px;*/
+	padding: 5px;
+	cursor: pointer;
+}
+.objective_builder #bar_degree
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 12pt;
+	background-color: rgba(41,128,185,1);
+	border-radius: 3px;
+	color: white;
+	/*position: relative;*/
+	border:none;
+	width: 110px;
+	padding: 5px;
+	/*left: 467px;*/
+	cursor: pointer;
+}
+.objective_builder #bar_finish 
+{
+	border-radius: 3px;
+	background-color: rgba(142,68,173,1);
+	/*left: 610px;*/
+	/*position: relative;*/
+	border:none;
+	width: 110px;
+	padding: 5px;
+	cursor: pointer;
+}
+.objective_builder #bar_finish img 
+{
+	height: 22px;
+	margin-left: 38px;
+	display: table;
+	padding: 0px;
+	cursor: pointer;
+}
+.objective_builder #objective_condition 
+{
+	color: rgba(39,174,96,1);
+	text-decoration: underline;
+	cursor: pointer;
+}
+.objective_builder #objective_condition:hover
+	{
+		color: white;
+		background-color: rgba(39,174,96,1);
+		text-decoration: none;
+	}
+.objective_builder #objective_audience 
+{
+	color: rgba(192,57,43,1);
+	text-decoration: underline;
+	cursor: pointer;
+}
+.objective_builder #objective_audience:hover
+	{
+		color: white;
+		background-color: rgba(192,57,43,1);
+		text-decoration: none;
+	}
+.objective_builder #objective_behavior 
+{
+	color: rgba(243,156,18,1);
+	text-decoration: underline;
+	cursor: pointer;
+}
+.objective_builder #objective_behavior:hover
+	{
+		color: white;
+		background-color: rgba(243,156,18,1);
+		text-decoration: none;
+	}
+.objective_builder #objective_tool
+{
+	color: rgba(243,156,18,1);
+	text-decoration: underline;
+	cursor: pointer;
+}
+.objective_builder #objective_tool:hover
+{
+	color: white;
+	background-color: rgba(243,156,18,1);
+	text-decoration: none;
+}
+.objective_builder #objective_degree 
+{
+	color: rgba(41,128,185,1);
+	text-decoration: underline;
+	cursor: pointer;
+}
+.objective_builder #objective_degree:hover
+	{
+		color: white;
+		background-color: rgba(41,128,185,1);
+		text-decoration: none;
+	}
+/* Slide Colors */
+.objective_builder #slide_1
+{
+	background-color: rgba(105,115,117,1);
+}
+.objective_builder #slide_2
+{
+	background-color: rgba(64,66,68,1);
+}
+.objective_builder #slide_3
+{
+	background-color: rgba(39,174,96,1);
+}
+.objective_builder #slide_4
+{
+	background-color: rgba(192,57,43,1);
+}
+.objective_builder #slide_5
+{
+	background-color: rgba(243,156,18,1);
+}
+.objective_builder #slide_6
+{
+	background-color: rgba(41,128,185,1);
+}
+.objective_builder #slide_7
+{
+	background-color: rgba(142,68,173,1);
+}
+
+/*titles*/
+.objective_builder h1
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 60px;
+	color: white;
+	margin:0px;
+}
+.objective_builder h2
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 18px;
+	color: white;
+	display: inline-block;
+	padding-top: 3px;
+}
+.objective_builder h3
+{
+	font-family: 'Open Sans', sans-serif;
+	color: white;
+	/*position: relative;*/
+	/*left: 418px;*/
+	/*top: -90px;*/
+	/*width: 239px;*/
+	font-size: 17px;
+}
+.objective_builder p
+{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 18px;
+	color: white;
+	margin:0px;
+}
+.objective_builder li
+{
+	font-family: 'Open Sans', sans-serif;
+	color: white;
+	cursor: auto;
+	/*width: 495px;*/
+	text-align:left;
+}
+.objective_builder .page_info
+{
+	/*position: relative;*/
+	/*left: 39px;*/
+	/*top: 150px;*/
+	display: block;
+	/*height: 50px;*/
+	width: 294px;
+	text-align: left;
+	float:left;
+}
+
+/*home slide*/
+.objective_builder #splash_title
+{
+	/*margin-bottom: -5px;*/
+}
+.objective_builder #splash_text
+{
+	font-size: 18px;
+	padding: 10px;
+	text-align: left;
+}
+.objective_builder .blocks
+{
+	width: 15%;
+	height: 7px;
+	margin-right: -10px;
+	margin-top: -5px;
+	display: inline-block;
+}
+.objective_builder #framework
+{
+	/*position: relative;*/
+	padding: 10px;
+	/*top: 225px;*/
+	text-align:left;
+}
+.objective_builder #splash_list li
+{
+	padding: 7px;
+	text-align: left;
+	width: 600px;
+}
+.objective_builder #splash_list
+{
+	/*position: relative;*/
+	/*top: 262px;*/
+}
+.objective_builder #red_block
+{
+	background-color: rgba(192,57,43,1);
+}
+.objective_builder #orange_block
+{
+	background-color: rgba(243,156,18,1);
+}
+.objective_builder #green_block
+{
+	background-color: rgba(39,174,96,1);
+}
+.objective_builder #blue_block
+{
+	background-color: rgba(41,128,185,1);
+}
+.objective_builder #purple_block
+{
+	background-color: rgba(142,68,173,1);
+}
+
+/*example slide*/
+.objective_builder #c
+{
+	/*position: relative;*/
+	/*top: -4px;*/
+	/*left: 43px;*/
+	text-decoration: underline;
+}
+.objective_builder #c p
+{
+	font-size: 26px;
+}
+.objective_builder #a
+{
+	/*position: relative;*/
+	/*top: 49px;*/
+	/*left: 43px;*/
+	text-decoration: underline;
+}
+.objective_builder #a p
+{
+	font-size: 26px;
+}
+.objective_builder #b
+{
+	/*position: relative;*/
+	/*top: 103px;*/
+	/*left: 43px;*/
+	text-decoration: underline;
+}
+.objective_builder #b p
+{
+	font-size: 26px;
+}
+.objective_builder #d
+{
+	/*position: relative;*/
+	/*top: 163px;*/
+	/*left: 43px;*/
+	text-decoration: underline;
+}
+.objective_builder #d p
+{
+	font-size: 26px;
+}
+.objective_builder #c_text
+{
+	color: rgba(39,174,96,1);
+	/*position: relative;*/
+	/*top: 39px;*/
+}
+.objective_builder #a_text
+{
+	color: rgba(192,57,43,1);
+	/*position: relative;*/
+	/*top: 95px;*/
+}
+.objective_builder #b_text
+{
+	color: rgba(243,156,18,1);
+	/*position: relative;*/
+	/*top: 150px;*/
+}
+.objective_builder #d_text
+{
+	color: rgba(41,128,185,1);
+	/*position: relative;*/
+	/*top: 210px;*/
+}
+.objective_builder #example_text
+{
+	position: relative;
+	/*left: 455px;*/
+	/*top: 149px;*/
+	font-size: 25px;
+	/*width: 300px;*/
+}
+.objective_builder #green_span
+{
+	color: rgba(39,174,96,1);
+}
+.objective_builder #red_span
+{
+	color: rgba(192,57,43,1);
+}
+.objective_builder #orange_span
+{
+	color: rgba(243,156,18,1);
+}
+.objective_builder #blue_span
+{
+	color: rgba(41,128,185,1);
+}
+.objective_builder #letter_list 
+{
+	list-style-type: none;
+	/*position: relative;*/
+	/*left: 53px;*/
+	/*top: 113px;*/
+	width: 50%;
+	display:block;
+	float:left;
+	margin: 0px;
+}
+.objective_builder #example_info
+{
+	/*width: 718px;*/
+	position: relative;
+	/*left: 22px;*/
+	/*top: 63px;*/
+	font-size: 16px;
+	padding: 4px 15px;]
+}
+
+/*Behavior*/
+.objective_builder .black_overlay
+{
+	display: none;
+	position: relative;
+	/*top: 0%;*/
+	left: 0%;
+	width: 800px;
+	height: 600px;
+	background-color: black;
+	z-index: 1001;
+	opacity: .80;
+	filter: alpha (opacity = 80);
+	bottom:100%;
+	text-align:center;
+}
+.objective_builder #master_behavior
+{
+	width: 550px;
+	position: relative;
+	/*margin-left: auto;*/
+	margin-right: 20px;
+	float:left;
+}
+.objective_builder #domain_div
+{
+	width: 440px;
+	/*position: relative;*/
+	/*top: 10px;*/
+}
+.objective_builder #domain_title
+{
+	/*margin-top: 27px;*/
+	/*position: relative;*/
+	/*left: 54px;*/
+	padding:0px 20px;
+}
+.objective_builder #domain_help_content 
+{
+	display: none;
+	position: relative;
+	padding: 16px;
+	border-radius: 3px;
+	background-color: white;
+	z-index: 1002;
+	overflow: auto;
+	/* Will 11-28-18 */
+	top: -700px;
+	left: 200px;
+	width: 400px;
+}
+.objective_builder #domain_help li 
+{
+	z-index: 1003;
+	color: black;
+	text-align: left;
+}
+.objective_builder #level_div
+{
+	width: 440px;
+	position: relative;
+	/*top: 100px;*/
+}
+.objective_builder #level_title
+{
+	margin-top: 26px;
+	position: relative;
+	/*left: 54px;*/
+}
+.objective_builder #level_help
+{
+	color: black;
+}
+.objective_builder #level_help_content 
+{
+	display: none;
+	position: relative;
+	/*top: -40px;*/
+	/*left: 25%;*/
+	padding: 16px;
+	border-radius: 3px;
+	background-color: white;
+	z-index: 1002;
+	overflow: auto;
+	/* Will 11-28-18 */
+	top: -700px;
+	left: 200px;
+	width: 400px;
+}
+.objective_builder #tool_help_content
+{
+	display: none;
+	position: relative;
+	/*bottom: 48px;*/
+	/*left: 140px;*/
+	padding: 16px;
+	border-radius: 3px;
+	background-color: white;
+	z-index: 1002;
+	overflow: auto;
+	/* Will 11-28-18 */
+	top: -700px;
+	left: 250px;
+	width: 400px;
+}
+.objective_builder #tool_help
+{
+	color: black;
+	/*width: 200px;*/
+}
+.objective_builder #definition 
+{
+	position: relative;
+	/*left: 426px;*/
+	/*top: -34px;*/
+	font-size: 15px;
+	/*width: 221px;*/
+}
+.objective_builder #level_example
+{
+	position: relative;
+	/*left: 427px;*/
+	/*top: 85px;*/
+	font-size: 15px;
+	/*width: 219px;*/
+}
+.objective_builder #verb_div
+{
+	width: 440px;
+	position: relative;
+	/*top: 190px;*/
+}
+.objective_builder #verb_title
+{
+	margin-top: 23px;
+	position: relative;
+	/*left: 54px;*/
+}
+.objective_builder select
+{
+	width: 150px;
+	height: 28px;
+	position: relative;
+	/*top: 28px;*/
+	padding: 4px;
+	border-radius: 3px;
+}
+.objective_builder #def
+{
+	position: relative;
+	/*left: 429px;*/
+	/*top: -62px;*/
+}
+.objective_builder #ex
+{
+	position: relative;
+	/*left: 429px;*/
+	/*top: 58px;*/
+}
+.objective_builder .numbers
+{
+	position: relative;
+	left: 1px;
+}
+.objective_builder .numbers img
+{
+	height: 45px;
+}
+.objective_builder .info img
+{
+	height: 26px;
+	/*left: 377px;*/
+	/*top: 4px;*/
+	position: relative;
+	cursor: pointer;
+}
+.objective_builder #tools
+{
+	position: relative;
+	/*top: 280px;*/
+}
+.objective_builder #tool_title
+{
+	font-size: 18px;
+	margin: 0px;
+	/*left: 30px;*/
+	/*top: 23px;*/
+	position: relative;
+	padding-left: 25px;
+	padding-top: 5px;
+}
+.objective_builder #tool_input
+{
+	/*left: 220px;*/
+	/*width: 139px;*/
+	/*height: 18px;*/
+	position: relative;
+	/*top: 28px;*/
+	padding: 3px;
+	border-radius: 3px;
+}
+
+
+/*Finish*/
+.objective_builder .objButtons
+{
+	display: inline-flex;
+	vertical-align: top;
+	float: right;
+	margin-right:10px;
+
+}
+.objective_builder .pencil
+{
+	position: relative;
+}
+.objective_builder .close
+{
+	position: relative;
+}
+.objective_builder .text
+{
+	text-align: left;
+}
+.objective_builder #add
+{
+	border-radius: 3px;
+	border-color: white;
+	font-size: 14pt;
+	border-width: 2px;
+	border-style: solid;
+	cursor: pointer;
+	padding: 3px 5px;
+	margin-top: 20px;
+	width: 200px;
+}
+.objective_builder #editing
+{
+	right: 200px;
+	top: 370px;
+	border-radius: 3px;
+	border-color: white;
+	font-size: 18pt;
+	border-width: 2px;
+	border-style: solid;
+	cursor: pointer;
+	width: 100px;
+}
+.objective_builder #delete
+{
+	right: 50px;
+	top: 370px;
+	border-radius: 3px;
+	border-color: white;
+	font-size: 18pt;
+	border-width: 2px;
+	border-style: solid;
+	cursor: pointer;
+	width: 100px;
+}
+.objective_builder #completed
+{
+	border-width: 5px;
+	border-radius: 3px;
+	border-style: solid;
+	border-color: white;
+	height: 260px;
+	width: 495px;
+	position: relative;
+	left: 157px;
+	top: 20px;
+	color: white;
+	font-family: 'Open Sans', sans-serif;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.objective_builder #congrats
+{
+	/*top: 58px;*/
+	width: 476px;
+	left: 219px;
+	position: relative;
+}
+.objective_builder #txtfile
+{
+	width: 200px;
+}
+.objective_builder #finished_objective_text
+{
+	display: none;
+	position: relative;
+	left: 25%;
+	height: 350px;
+	width: 450px;
+	border-radius: 3px;
+	background-color: white;
+	z-index: 1002;
+	overflow: auto;
+	bottom:180%;
+}
+.objective_builder #finished_objective_text textarea
+{
+	width: 409px;
+	height: 306px;
+	position: relative;
+	left: 18px;
+	top: 18px;
+	max-width: 409px;
+}
+.objective_builder #compList
+{
+	list-style-type: none;
+	max-width: 496px;
+	cursor: pointer;
+	position: relative;
+	padding-left: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	background-color: rgba(64,66,68,1);
+}
+.objective_builder #compList li
+{
+	display: table;
+	border-bottom: 1px solid #646464;
+}
+.objective_builder #finish_edit
+{
+	position: relative;
+	left: 200px;
+	top: 20px;
+	float:left;
+}
+.objective_builder #download_text
+{
+	font-size: 14pt;
+	border-width: 2px;
+	border-color: white;
+	border-radius: 3px;
+	border-style: solid;
+	top: 40px;
+	position: relative;
+	cursor: pointer;
+	width: 104px;
+	padding: 3px;
+	height: 35px;
+}
+.objective_builder .finCon
+{
+	max-width: 480px;
+	float: left;
+	margin-right: 20px;
+	margin-left: 5px;
+}
+/*Hide and Show Div */
+
+.objective_builder #hide
+{
+	width: 800px;
+	height: 100px;
+	background-color: rgba(105,115,117,1);
+}
+.objective_builder #example_hide
+{
+	width: 800px;
+	height: 100px;
+	background-color: rgba(64,66,68,1);
+	top: 500px;
+	position: relative;
+}
+
+/* Will 11-28-18 */
+
+.objective_builder .select2-container{
+	width:160px !important;
+}
+
+.objective_builder #level_definition{
+	position:relative;
+	width:200px;
+	float:left;
+}
+
+.objective_builder #download{
+	position:relative;
+	
+}
+
+.objective_builder #download_button{
+	display:inline-block;
+	position:relative;
+}
