@@ -1,0 +1,11 @@
+<li class="{% if 'staff_resources' in sidebar_group %}active{% endif %}">
+    <a href="#" data-toggle="collapse" data-target="#staff_resource_links" class="{% if 'staff_resources' in sidebar_group %}collapsed{% endif %}" aria-expanded="true">
+        <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Staff Resources<span class="caret"></span>
+    </a>
+    <ul id="staff_resource_links" class="sidebar-items collapse {% if 'staff_resources' in sidebar_group %}in{% endif %}" aria-expanded="true">
+    	<li>{% include '_sidebar_item.html' with url='outcome-generator' label='Learning Outcome Generator' icon='fas fa-tasks'%}</li>
+    	<li>{% include '_sidebar_item.html' with url='workload-estimator' label='Course Workload Estimator' icon='fas fa-tasks'%}</li>
+        <li>{% include '_sidebar_item.html' with url='objective_builder' label='Objective Builder' icon='fas fa-chart-line'%}</li>
+        <li><a href="https://syllabustracker.outreach.ou.edu/" target="_new"><i class="fas fa-crosshairs"></i>Syllabus Tracker</a></li>
+    </ul>
+</li>
