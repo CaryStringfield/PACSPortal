@@ -1,0 +1,23 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+{% load tz %}
+
+{% block extrastyle %}
+	{{ block.super }}
+	<link rel="stylesheet" type="text/css" href="{% static "admin/css/pacs_admin.css" %}" />
+{% endblock %}
+
+{% block object-tools-items %}
+	<li>
+		<a href="reload/">Reload Students from Canvas</a>
+	</li>
+	{{ block.super }}
+{% endblock %}
+
+{% block content_title %}
+	{{ block.super }}
+	<br>
+	<span><i>Note: Reloading data will clear out the cached data for dependent tables</i></span>
+	<br>
+	<span>Data loaded: <mark>{{ load_date|localtime }}</mark></span>
+{% endblock %}

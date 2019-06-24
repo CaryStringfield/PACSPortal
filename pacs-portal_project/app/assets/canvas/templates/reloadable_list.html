@@ -1,0 +1,18 @@
+{% extends "generic_list.html" %}
+{% load static %}
+{% load tz %}
+
+{% block details %}
+	{{ block.super }}
+	{% if course_id %}
+        <div class="row">
+            <div class="col-sm-12">
+				<a class="btn btn-warning btn-inline" href="?reload=True">
+				    <i class="glyphicon glyphicon-refresh"></i> Reload
+				</a>
+				<span>Data loaded: <span class="highlight">{{ load_date|localtime }}</span></span>
+                
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

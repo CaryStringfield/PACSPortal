@@ -1,0 +1,17 @@
+<li class="{% if 'canvas' in sidebar_group %}active{% endif %}">
+    <a href="#" data-toggle="collapse" data-target="#canvas_links" class="{% if 'canvas' in sidebar_group %}collapsed{% endif %}" aria-expanded="true">
+        <span class="fa fa-database" aria-hidden="true"></span> Canvas Cached Data<span class="caret"></span>
+    </a>
+    <ul id="canvas_links" class="sidebar-items collapse {% if 'canvas' in sidebar_group %}in{% endif %}" aria-expanded="true">
+    	<li><i style="display:block; padding:10px 15px 10px 44px; text-decoration:none; color:#999;">Cached / Admin Loaded</i></li>
+		<li>{% include '_sidebar_item.html' with url='canvas_admincourse_list' label='Admin Course List' icon='fas fa-school'%}</li>
+		<li>{% include '_sidebar_item.html' with url='canvas_student_list' label='Student List' icon='fas fa-user-graduate'%}</li>
+		<li>{% include '_sidebar_item.html' with url='canvas_subaccount_list' label='Subaccount List' icon='fas fa-industry'%}</li>
+		<li>{% include '_sidebar_item.html' with url='canvas_term_list' label='Term List' icon='fas fa-calendar'%}</li>
+		
+    	<li><i style="display:block; padding:10px 15px 10px 44px; text-decoration:none; color:#999;">Cached / Dynamic</i></li>
+		<li>{% include '_sidebar_item.html' with url='canvas_studentcourse_list' label='Student / Course List' icon='fas fa-chalkboard-teacher'%}</li>
+		<li>{% include '_sidebar_item.html' with url='canvas_assignment_list' label='Assignment List' icon='fas fa-book-open'%}</li>
+
+    </ul>
+</li>

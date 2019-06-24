@@ -1,0 +1,44 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+{% load tz %}
+
+{% block extrastyle %}
+	{{ block.super }}
+	<link rel="stylesheet" type="text/css" href="{% static "admin/css/pacs_admin.css" %}" />
+{% endblock %}
+
+{% block object-tools-items %}
+
+	<li>
+		<select style="float:left; height:30px;" id="reload_selector"> 
+			{% for term in terms %}
+				<option value="{{term.term_id}}">{{term.name}}</option>		
+			{% endfor %}
+		</select>
+		&nbsp;&nbsp;
+		<a href="{{ current_term_id }}/reload/" id="reload_tag">Load Course list for selected term</a>
+	</li>
+	{{ block.super }}
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+django.jQuery(document).ready(function() {
+	django.jQuery('#reload_selector').change(function() {
+	    var selectedText = django.jQuery(this).find("option:selected").text();
+	    var selectedValue = django.jQuery(this).val();
+	    django.jQuery('#reload_tag').attr("href", selectedValue + "/reload/");
+	    //alert("Selected Text: " + selectedText + " Value: " + selectedValue);
+	});
+});
+</script>
+{% endblock %}
+
+{% block content_title %}
+	{{ block.super }}
+	<br>
+	<span><i>Note: Reloading data will clear out the cached data for dependent tables</i></span>
+	<br>
+	<span>Data loaded: <mark>{{ load_date|localtime }}</mark></span>
+{% endblock %}
