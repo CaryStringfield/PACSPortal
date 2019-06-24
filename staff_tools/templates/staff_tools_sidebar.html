@@ -1,0 +1,11 @@
+<li class="{% if 'staff_tools' in sidebar_group %}active{% endif %}">
+    <a href="#" data-toggle="collapse" data-target="#staff_tool_links" class="{% if 'staff_tools' in sidebar_group %}collapsed{% endif %}" aria-expanded="true">
+        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Staff Tools<span class="caret"></span>
+    </a>
+    <ul id="staff_tool_links" class="sidebar-items collapse {% if 'staff_tools' in sidebar_group %}in{% endif %}" aria-expanded="true">
+        <li>{% include '_sidebar_item.html' with url='crop_tool' label='Crop tool' icon='fas fa-crop'%}</li>
+        <li>{% include '_sidebar_item.html' with url='button_maker' label='Button Maker' icon='fas fa-certificate' %}</li>
+        <li>{% include '_sidebar_item.html' with url='banner_maker' label='Banner Maker' icon='fab fa-flipboard'%}</li>
+        <li><a href="https://salsa.outreach.ou.edu/SALSA/new" target="_new"><i class="far fa-list-alt"></i>Salsa</a></li>
+    </ul>
+</li>

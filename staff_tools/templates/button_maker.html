@@ -1,0 +1,372 @@
+{% extends "base.html" %}
+ 
+{% block page_title %}
+    Button Maker
+{% endblock page_title %}
+{% block page_headline %}
+    <div class="col-xs-12"><h1 align="center">{{ page_title }}</h1></div>
+{% endblock page_headline %}
+
+
+{% block content %}
+
+ <style>
+ 	.table {
+  	display: table;
+  	border-collapse: separate;
+  	border-spacing: 10px 50px;
+  	width: 612px;
+	}
+
+	.tableRow {
+  	display: table-row;
+	}
+
+	.tableCell {
+  	display: table-cell;
+  	vertical-align: top;
+	}
+
+	.box {
+ 	 border: 10px solid rgba(238, 238, 238, 0.6);
+  	background-color: rgba(238, 238, 238, 0.2);
+	}
+
+	#panel {
+  	cursor: move;
+	}
+
+	#cropButton{
+	padding: 0.5em 1em;
+	background-color: #660000;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;	
+	}
+
+	#crop_result{
+	margin: 10px;
+	}
+
+	input[type="file"] {
+     border: 0.125em solid #841617;
+     border-radius: 0.5em;
+	}
+	
+	button {
+	padding: 4px 10px;
+	font-size: 1em; 
+	}
+
+input {
+  padding: 4px 10px;
+  font-size: 1em;
+}         
+</style>
+     
+    <div id="box1" align="center" style="">
+       <div class="table">
+            <div class="tableRow">
+                
+                <div class="tableCell box">
+                    <canvas id="startcanvas" width="612" height="496"></canvas>
+                    <img id='start-image'  style ="display: none;" src="/static/img/campus.jpg" alt =""/>
+                </div>
+                
+                <div class="tableCell box">                  
+                    Scale:<input id ="scale" max="1" min="0.1" step="0.01" type="range" value="1"/>
+                    <img id="crop_result" /><br/>
+                     <div align="center">
+                     <p><strong>Choose Text</strong></p>
+                        <form id= "units">
+                                <input type="radio" id= "start"  name="units" value="Start Here" > Start Here &nbsp;   
+                                <input type="radio" id= "intro"  name="units" value="Student Introductions"> Student Introductions &nbsp;<br/>         
+                                <input type="radio" id= "1"  name="units" value="Unit 1"> Unit 1 &nbsp; 
+                                <input type="radio" id= "2"  name="units" value="Unit 2">  Unit 2 &nbsp;
+                                <input type="radio" id= "3"  name="units" value="Unit 3" > Unit 3 &nbsp;<br/>
+                                <input type="radio" id= "4"  name="units" value="Unit 4"> Unit 4 &nbsp;
+                                <input type="radio" id= "5"  name="units" value="Unit 5"> Unit 5 &nbsp;
+                                <input type="radio" id= "6"  name="units" value="Unit 6" > Unit 6 &nbsp;<br/>
+                                <input type="radio" id= "7"  name="units" value="Unit 7"> Unit 7 &nbsp;
+                                <input type="radio" id= "8"  name="units" value="Unit 8"> Unit 8 &nbsp;<br/>
+                                <input type="radio" id= "studentR"  name="units" value="Student Resources"> Student Resources &nbsp;<br/>
+                                <input type="radio" id= "finalP"  name="units" value="Final Project"> Final Project &nbsp;                                
+                         </form>
+                        	<br/>
+                            <input id="cusText" placeholder="Or Enter Custom Text" autocomplete="off"><br/><br/>
+                            <input type="checkbox" id= "bnw"  name="bnw" value="1"> Make Image Greyscale &nbsp;<br/><br/>
+                            <a class="btn-primary" id ="cropButton">Make Button</a><br/>
+                            </div>
+                            <br/>
+                        <input id="fileInput" type="file"/>                     
+                    </div>
+                </div> 
+            </div>
+        </div>    
+    </div>
+    <br><br>
+
+    
+ <script>
+var canvas = document.getElementById('startcanvas');
+            ctx = canvas.getContext('2d');
+            
+            
+            var cutoutWidth = 175;
+            var windowWidth = 211;  
+            var windowHiegth = 108;
+            var lastPointX = 0;
+            var lastpointY = 0;  
+            var newPointX = 0;
+            var newpointY = 0;
+            //var valScale = 1;
+            var click = false;
+            
+            var deviceWidth = window.innerWidth;
+       
+            var img = document.getElementById('start-image'); 
+            
+            ctx.canvas.onmousedown = this.onMouseDown.bind(this);
+            ctx.canvas.onmousemove = this.onMouseMove.bind(this);
+            ctx.canvas.onmouseup = this.onMouseUp.bind(this);
+            
+            scale = document.getElementById('scale');
+            scale.addEventListener('change', doTransform, false);    
+            
+            crop = document.getElementById('cropButton');
+            crop.addEventListener('click', showCropedImage, false);
+            
+            var fileInput = document.getElementById('fileInput');            
+            fileInput.addEventListener('change', imageLoader, false);            
+            
+            img.onload = function(){
+                ctx.drawImage(img, 0, 0); 
+                drawCutout();
+            };
+           
+            //draws the grey area leaving an empty box
+            function drawCutout() {
+                ctx.fillStyle = 'rgba(128, 128, 128, 0.7)';
+                ctx.beginPath();
+                ctx.rect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+                //Draw anti clockwise rectangle, for cutout.
+                ctx.moveTo(cutoutWidth, cutoutWidth);
+                ctx.lineTo(cutoutWidth, windowHiegth + cutoutWidth);
+                ctx.lineTo(cutoutWidth + windowWidth, cutoutWidth + windowHiegth);
+                ctx.lineTo(cutoutWidth + windowWidth, cutoutWidth);
+                ctx.closePath();
+                ctx.fill();
+            }; 
+            
+            function writeMeme (text, x, y) {
+                var f = null; // Font size (in pt)
+                ctx.lineWidth = 3;
+                ctx.globalAlpha = 1;
+				ctx.fillStyle = "white";
+                for (f = 18; f >= 0; f -= 1) {
+                    ctx.font = "bold " + f + "pt Arial, Charcoal, sans-serif";
+                    if (ctx.measureText(text).width < 188) {
+                        ctx.strokeText(text, x, y);
+                        ctx.fillText(text, x, y);
+                        
+                        break;
+                    }
+                }
+            };
+
+            //moving and scaling
+            function doTransform(event){                
+                        
+                ctx.save();              
+                
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                //ctx.translate(0, 0);
+                //ctx.translate(canvas.width/2, canvas.height/2);
+                ctx.translate(175, 175);
+                
+                valScale = document.getElementById('scale').value;
+                ctx.scale(valScale,valScale);
+                
+                var canvasX = 0;
+                var canvasY = 0; 
+                
+                if(event.clientX > 0){
+                    canvasX = event.clientX - lastPointX;
+                }
+                
+                if(event.clientY > 0){
+                    canvasY = event.clientY - lastPointY;
+                }
+                                
+                ctx.translate(canvasX, canvasY);                
+                             
+                var valScale = document.getElementById('scale').value;
+                ctx.scale(valScale,valScale);
+                
+                ctx.drawImage(img, canvasX, canvasY);     
+                 
+                ctx.restore(); 
+                drawCutout();
+            };  
+            
+            function onMouseDown(event){
+                event.preventDefault();
+                var x = event.clientX;
+                var y = event.clientY;                
+                lastPointX = x;
+                lastPointY = y; 
+                click = true;
+            };
+            
+            function onMouseMove(event){
+                event.preventDefault();                                     
+                if (click) {
+                    doTransform(event);
+                }  
+                
+            };
+            
+            function onMouseUp(event){
+              event.preventDefault(); 
+              var x = event.clientX;
+              var y = event.clientY;                
+              newPointX = x;
+              newPointY = y; 
+              click = false;              
+            };
+            
+            function setText(){
+				theText = document.getElementById("cusText").value;
+				
+				if(theText.match(/\S/)){
+					return theText;
+				}					
+                if (document.getElementById("start").checked){
+                    theText = document.getElementById("start").value;
+                    return theText;
+                }
+                if (document.getElementById("intro").checked){
+                   	theText = document.getElementById("intro").value;
+                   	return theText;
+                }
+                if (document.getElementById("1").checked){
+                   	theText = document.getElementById("1").value;
+                   	return theText;
+                }
+                if (document.getElementById("2").checked){
+                   	theText = document.getElementById("2").value;
+                   	return theText;
+                }
+                if (document.getElementById("3").checked){
+                 	theText = document.getElementById("3").value;
+                   	return theText;
+               	}
+                if (document.getElementById("4").checked){
+                   	theText = document.getElementById("4").value;
+                   	return theText;
+               	}
+               	if (document.getElementById("5").checked){
+                   	theText = document.getElementById("5").value;
+                   	return theText;
+               	}
+               	if (document.getElementById("6").checked){
+                   	theText = document.getElementById("6").value;
+                   	return theText;
+                }
+                if (document.getElementById("7").checked){
+                   	theText = document.getElementById("7").value;
+                   	return theText;
+                }
+                if (document.getElementById("8").checked){
+                   	theText = document.getElementById("8").value;
+                   	return theText;
+               	}
+                if (document.getElementById("studentR").checked){
+                   	theText = document.getElementById("studentR").value;
+                   	return theText;
+                }
+                if (document.getElementById("finalP").checked){
+                   	theText = document.getElementById("finalP").value;
+                   	return theText;
+ 	             } 
+	
+                };
+				
+            //make grey scale version
+			 function blackAndWhite() {
+				 
+				//make grey scale version                 
+                var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                var data = imageData.data;
+
+                for(var i = 0; i < data.length; i += 4) {
+                var brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
+                // red
+                data[i] = brightness;
+                // green
+                data[i + 1] = brightness;
+                // blue
+                data[i + 2] = brightness;            }
+                // overwrite original image with greyscale version
+                ctx.putImageData(imageData, 0, 0);  
+				
+				ctx.fillStyle= "black";
+                ctx.globalAlpha = 0.25;
+                ctx.fillRect(0,0,canvas.width,canvas.height);				 
+			};			
+			
+            function showCropedImage() {                
+                ctx.fillStyle = "white";
+                theText = setText(); 
+               	                				
+				if (document.getElementById("bnw").checked){				
+					blackAndWhite();
+				}              
+               			
+				if ((document.getElementById("studentR").checked) || (document.getElementById("intro").checked) ){
+                    var splitText = theText.split(" ");
+                    var line1 = splitText[0];
+                    var line2= splitText[1];
+                    writeMeme(line1, 188, 205);
+                    writeMeme(line2, 188, 232);
+                }
+				else
+                {
+                   writeMeme(theText, 188, 205); 
+                }
+				
+				             
+                //new image in 2nd box
+                var temp_ctx, temp_canvas;
+                temp_canvas = document.createElement('canvas');
+                temp_ctx = temp_canvas.getContext('2d');
+                temp_canvas.width = windowWidth;
+                temp_canvas.height = windowHiegth;
+                temp_ctx.drawImage(ctx.canvas, cutoutWidth, cutoutWidth, windowWidth, 
+                    windowWidth, 0, 0, windowWidth, windowWidth); 
+                var vData = temp_canvas.toDataURL();
+                document.getElementById('crop_result').src = vData;
+            };
+            
+            //load new image
+            function imageLoader(){
+                
+                var reader = new FileReader();
+                reader.onload = function(event){
+                    img.onlaod = function(){
+                        ctx.drawImage(img,0,0);
+                    };
+                   img.src = event.target.result; 
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+                scale.value = 1;
+                
+            };
+            
+           
+            
+</script>
+ 
+{% endblock %}

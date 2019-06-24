@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+ 
+{% block page_title %}
+    Button Maker
+{% endblock page_title %}
+{% block page_headline %}
+    <div class="col-xs-12"><h1 align="center">{{ page_title }}</h1></div>
+{% endblock page_headline %}
+
+
+{% block content %}
+
+<style>
+.table {
+  display: table;
+  border-collapse: separate;
+  border-spacing: 10px 50px;
+  width: 612px;
+}
+
+.tableRow {
+  display: table-row;
+}
+
+.tableCell {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.box {
+  border: 10px solid rgba(238, 238, 238, 0.6);
+  background-color: rgba(238, 238, 238, 0.2);
+}
+
+#panel {
+  cursor: move;
+}
+
+#cropButton{
+	padding: 0.5em 1em;
+	background-color: #660000;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;	
+}
+
+#crop_result{
+	margin: 10px;
+}
+
+input[type="file"] {
+     border: 0.125em solid #841617;
+     border-radius: 0.5em;
+}
+	
+button {
+  padding: 4px 10px;
+  font-size: 1em; 
+}
+
+input {
+  padding: 4px 10px;
+  font-size: 1em;
+}         
+            
+</style>      
+<div align="center" >       
+<div class="table" >
+	<div class="tableRow">
+                
+		<div class="tableCell box">
+			<canvas id="startcanvas" width="612" height="496"></canvas>
+			<img id="start-image"  style ="display: none;" src="/static/img/campus.jpg" alt =""/>
+        </div>
+                
+        <div class="tableCell box">                  
+            Scale:<input id ="scale" max="1" min="0.1" step="0.01" type="range" value="1"/>
+            <a class="btn-primary" id="cropButton">Crop</a>
+            <br/>
+            <img id="crop_result" alt =""/><br/>
+            <input class="btn-primary" id="fileInput" type="file"/>                     
+        </div>
+	</div> 
+</div>
+</div>
+
+<script>
+                
+var canvas = document.getElementById('startcanvas');
+ctx = canvas.getContext('2d');
+            
+var cutoutWidth = 175;
+var windowWidth = 262;  
+var windowHiegth = 146;
+var lastPointX = 0;
+var lastpointY = 0;  
+var newPointX = 0;
+var newpointY = 0;
+//var valScale = 1;
+var click = false;
+            
+var deviceWidth = window.innerWidth;
+       
+var img = document.getElementById('start-image'); 
+            
+ctx.canvas.onmousedown = this.onMouseDown.bind(this);
+ctx.canvas.onmousemove = this.onMouseMove.bind(this);
+ctx.canvas.onmouseup = this.onMouseUp.bind(this);
+        
+scale = document.getElementById('scale');
+scale.addEventListener('change', doTransform, false);              
+            
+            
+crop = document.getElementById('cropButton');
+crop.addEventListener('click', showCropedImage, false);
+            
+var fileInput = document.getElementById('fileInput');            
+fileInput.addEventListener('change', imageLoader, false);            
+            
+img.onload = function(){
+   ctx.drawImage(img, 0, 0); 
+   drawCutout();
+};
+           
+//draws the grey area leaving an empty box
+function drawCutout() {
+    ctx.fillStyle = 'rgba(128, 128, 128, 0.7)';
+    ctx.beginPath();
+    ctx.rect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    //Draw anti clockwise rectangle, for cutout.
+    ctx.moveTo(cutoutWidth, cutoutWidth);
+    ctx.lineTo(cutoutWidth, windowHiegth + cutoutWidth);
+    ctx.lineTo(cutoutWidth + windowWidth, cutoutWidth + windowHiegth);
+    ctx.lineTo(cutoutWidth + windowWidth, cutoutWidth);
+    ctx.closePath();
+    ctx.fill();
+};         
+
+//moving and scaling
+function doTransform(event){                
+                   
+    ctx.save();              
+            
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+    //ctx.translate(0, 0);
+    //ctx.translate(canvas.width/2, canvas.height/2);
+    ctx.translate(175, 175);
+            
+    valScale = document.getElementById('scale').value;
+    ctx.scale(valScale,valScale);
+                
+    var canvasX = 0;
+    var canvasY = 0; 
+                
+    if(event.clientX > 0){
+        canvasX = event.clientX - lastPointX;
+    }
+                
+    if(event.clientY > 0){
+        canvasY = event.clientY - lastPointY;
+    }
+                                
+    ctx.translate(canvasX, canvasY);                
+                             
+    var valScale = document.getElementById('scale').value;
+    ctx.scale(valScale,valScale);
+                
+    ctx.drawImage(img, canvasX, canvasY);     
+               
+    ctx.restore(); 
+    drawCutout();
+	};  
+            
+function onMouseDown(event){
+    event.preventDefault();
+    var x = event.clientX;
+    var y = event.clientY;                
+    lastPointX = x;
+    lastPointY = y; 
+    click = true;
+};
+            
+function onMouseMove(event){
+    event.preventDefault();                                     
+    if (click) {
+        doTransform(event);
+    }  
+};
+            
+function onMouseUp(event){
+    event.preventDefault(); 
+    var x = event.clientX;
+    var y = event.clientY;                
+    newPointX = x;
+    newPointY = y; 
+    click = false;              
+ };
+            
+ function showCropedImage() {
+              
+   	//make grey scale version
+    var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    var data = imageData.data;
+
+    for(var i = 0; i < data.length; i += 4) {
+    var brightness = 0.34 * data[i] + 0.5 * data[i + 1] + 0.16 * data[i + 2];
+    // red
+    data[i] = brightness;
+   // green
+    data[i + 1] = brightness;
+     // blue
+    data[i + 2] = brightness;            }
+    // overwrite original image with greyscale version
+    ctx.putImageData(imageData, 0, 0);                 
+    //new image in 2nd box
+    var temp_ctx, temp_canvas;
+    temp_canvas = document.createElement('canvas');
+    temp_ctx = temp_canvas.getContext('2d');
+    temp_canvas.width = windowWidth;
+    temp_canvas.height = windowHiegth;
+    temp_ctx.drawImage(ctx.canvas, cutoutWidth, cutoutWidth, windowWidth, 
+ 	   windowWidth, 0, 0, windowWidth, windowWidth); 
+    var vData = temp_canvas.toDataURL();
+    document.getElementById('crop_result').src = vData;
+};
+                
+//load new image
+function imageLoader(){
+                
+    var reader = new FileReader();
+    reader.onload = function(event){
+       img.onlaod = function(){
+            ctx.drawImage(img,0,0);
+       };
+       img.src = event.target.result; 
+   };
+    reader.readAsDataURL(fileInput.files[0]);
+    scale.value = 1;
+};        
+        </script>
+   {% endblock %}
